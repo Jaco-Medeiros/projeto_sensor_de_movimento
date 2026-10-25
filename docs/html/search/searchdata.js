@@ -2,8 +2,8 @@ var indexSectionsWithContent =
 {
   0: "lmsv",
   1: "s",
-  2: "s",
-  3: "lsv",
+  2: "ms",
+  3: "lmsv",
   4: "m"
 };
 
