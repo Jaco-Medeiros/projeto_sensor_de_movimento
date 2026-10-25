@@ -1,0 +1,198 @@
+\doxysection{Sensor\+PIR Class Reference}
+\hypertarget{classSensorPIR}{}\label{classSensorPIR}\index{SensorPIR@{SensorPIR}}
+
+
+Classe responsável por gerenciar o sensor de presença (PIR).  
+
+
+
+
+{\ttfamily \#include $<$Sensor\+PIR.\+hpp$>$}
+
+
+
+Collaboration diagram for Sensor\+PIR\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=259pt]{classSensorPIR__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classSensorPIR_a599155f9d1d4c090523282a8408fa3be}{Sensor\+PIR}} (int canal\+\_\+adc, int limiar\+\_\+deteccao=2000)
+\begin{DoxyCompactList}\small\item\em Construtor da classe \doxylink{classSensorPIR}{Sensor\+PIR}. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classSensorPIR_a2a8d63cabe29969e6b7a741a455dd360}{ler\+Valor\+Bruto}} ()
+\begin{DoxyCompactList}\small\item\em Realiza a leitura instantânea do valor no arquivo do sensor. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classSensorPIR_addde127b473dade62347d44af3b7a9fe}{verificar\+Violacao}} ()
+\begin{DoxyCompactList}\small\item\em Verifica se houve detecção de movimento com base no limiar configurado. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{classSensorPIR_a50e213cc69e02013aad67167f200add7}{m\+\_\+caminho\+\_\+arquivo}}
+\begin{DoxyCompactList}\small\item\em Caminho absoluto no sistema de arquivos para o canal ADC correspondente. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classSensorPIR_a0f74a57d217e1f1330dc17fd7a241577}{m\+\_\+limiar}}
+\begin{DoxyCompactList}\small\item\em Valor de referência para considerar o sensor acionado (presença detectada). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Classe responsável por gerenciar o sensor de presença (PIR). 
+
+Fornece métodos para inicializar o sensor no canal correto e realizar a leitura dos dados brutos sem o uso de variáveis globais. 
+
+Definition at line \mbox{\hyperlink{SensorPIR_8hpp_source_l00016}{16}} of file \mbox{\hyperlink{SensorPIR_8hpp_source}{Sensor\+PIR.\+hpp}}.
+
+
+
+\label{doc-constructors}
+\Hypertarget{classSensorPIR_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classSensorPIR_a599155f9d1d4c090523282a8408fa3be}\index{SensorPIR@{SensorPIR}!SensorPIR@{SensorPIR}}
+\index{SensorPIR@{SensorPIR}!SensorPIR@{SensorPIR}}
+\doxysubsubsection{\texorpdfstring{SensorPIR()}{SensorPIR()}}
+{\footnotesize\ttfamily \label{classSensorPIR_a599155f9d1d4c090523282a8408fa3be} 
+Sensor\+PIR\+::\+Sensor\+PIR (\begin{DoxyParamCaption}\item[{int}]{canal\+\_\+adc}{, }\item[{int}]{limiar\+\_\+deteccao}{ = {\ttfamily 2000}}\end{DoxyParamCaption})}
+
+
+
+Construtor da classe \doxylink{classSensorPIR}{Sensor\+PIR}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em canal\+\_\+adc} & Número do canal ADC correspondente à conexão física no kit (ex\+: 0, 1, 2). \\
+\hline
+{\em limiar\+\_\+deteccao} & Tensão bruta mínima para caracterizar uma violação (padrão\+: 2000). \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{SensorPIR_8cpp_source_l00005}{5}} of file \mbox{\hyperlink{SensorPIR_8cpp_source}{Sensor\+PIR.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00005\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{classSensorPIR_a0f74a57d217e1f1330dc17fd7a241577}{m\_limiar}}(limiar\_deteccao)\ \{}
+\DoxyCodeLine{00006\ \ \ \ \ \textcolor{comment}{//\ Mapeia\ o\ arquivo\ lógico\ do\ sensor\ com\ base\ no\ canal\ descoberto\ no\ subsistema\ IIO}}
+\DoxyCodeLine{00007\ \ \ \ \ \mbox{\hyperlink{classSensorPIR_a50e213cc69e02013aad67167f200add7}{m\_caminho\_arquivo}}\ =\ \textcolor{stringliteral}{"{}/sys/bus/iio/devices/iio:device0/in\_voltage"{}}\ +\ std::to\_string(canal\_adc)\ +\ \textcolor{stringliteral}{"{}\_raw"{}};}
+\DoxyCodeLine{00008\ \}}
+
+\end{DoxyCode}
+
+
+\label{doc-func-members}
+\Hypertarget{classSensorPIR_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classSensorPIR_a2a8d63cabe29969e6b7a741a455dd360}\index{SensorPIR@{SensorPIR}!lerValorBruto@{lerValorBruto}}
+\index{lerValorBruto@{lerValorBruto}!SensorPIR@{SensorPIR}}
+\doxysubsubsection{\texorpdfstring{lerValorBruto()}{lerValorBruto()}}
+{\footnotesize\ttfamily \label{classSensorPIR_a2a8d63cabe29969e6b7a741a455dd360} 
+int Sensor\+PIR\+::ler\+Valor\+Bruto (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Realiza a leitura instantânea do valor no arquivo do sensor. 
+
+\begin{DoxyReturn}{Returns}
+O valor inteiro lido do arquivo in\+\_\+voltage\+X\+\_\+raw. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{SensorPIR_8cpp_source_l00010}{10}} of file \mbox{\hyperlink{SensorPIR_8cpp_source}{Sensor\+PIR.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00011\ \ \ \ \ std::ifstream\ arquivo(\mbox{\hyperlink{classSensorPIR_a50e213cc69e02013aad67167f200add7}{m\_caminho\_arquivo}});}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{int}\ valor\_lido\ =\ 0;}
+\DoxyCodeLine{00013\ \ \ \ \ }
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordflow}{if}\ (arquivo.is\_open())\ \{}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ arquivo\ >>\ valor\_lido;}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ arquivo.close();}
+\DoxyCodeLine{00017\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Erro:\ Não\ foi\ possível\ abrir\ o\ arquivo\ do\ sensor\ em\ "{}}\ <<\ \mbox{\hyperlink{classSensorPIR_a50e213cc69e02013aad67167f200add7}{m\_caminho\_arquivo}}\ <<\ std::endl;}
+\DoxyCodeLine{00019\ \ \ \ \ \}}
+\DoxyCodeLine{00020\ \ \ \ \ }
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordflow}{return}\ valor\_lido;}
+\DoxyCodeLine{00022\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classSensorPIR_a2a8d63cabe29969e6b7a741a455dd360_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classSensorPIR_addde127b473dade62347d44af3b7a9fe}\index{SensorPIR@{SensorPIR}!verificarViolacao@{verificarViolacao}}
+\index{verificarViolacao@{verificarViolacao}!SensorPIR@{SensorPIR}}
+\doxysubsubsection{\texorpdfstring{verificarViolacao()}{verificarViolacao()}}
+{\footnotesize\ttfamily \label{classSensorPIR_addde127b473dade62347d44af3b7a9fe} 
+bool Sensor\+PIR\+::verificar\+Violacao (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Verifica se houve detecção de movimento com base no limiar configurado. 
+
+\begin{DoxyReturn}{Returns}
+true se o valor lido for maior que o limiar (movimento detectado), false caso contrário. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{SensorPIR_8cpp_source_l00024}{24}} of file \mbox{\hyperlink{SensorPIR_8cpp_source}{Sensor\+PIR.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classSensorPIR_a2a8d63cabe29969e6b7a741a455dd360}{lerValorBruto}}()\ >\ \mbox{\hyperlink{classSensorPIR_a0f74a57d217e1f1330dc17fd7a241577}{m\_limiar}};}
+\DoxyCodeLine{00026\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classSensorPIR_addde127b473dade62347d44af3b7a9fe_cgraph}
+\end{center}
+\end{figure}
+
+
+\label{doc-variable-members}
+\Hypertarget{classSensorPIR_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classSensorPIR_a50e213cc69e02013aad67167f200add7}\index{SensorPIR@{SensorPIR}!m\_caminho\_arquivo@{m\_caminho\_arquivo}}
+\index{m\_caminho\_arquivo@{m\_caminho\_arquivo}!SensorPIR@{SensorPIR}}
+\doxysubsubsection{\texorpdfstring{m\_caminho\_arquivo}{m\_caminho\_arquivo}}
+{\footnotesize\ttfamily \label{classSensorPIR_a50e213cc69e02013aad67167f200add7} 
+std\+::string Sensor\+PIR\+::m\+\_\+caminho\+\_\+arquivo\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Caminho absoluto no sistema de arquivos para o canal ADC correspondente. 
+
+
+
+Definition at line \mbox{\hyperlink{SensorPIR_8hpp_source_l00018}{18}} of file \mbox{\hyperlink{SensorPIR_8hpp_source}{Sensor\+PIR.\+hpp}}.
+
+\Hypertarget{classSensorPIR_a0f74a57d217e1f1330dc17fd7a241577}\index{SensorPIR@{SensorPIR}!m\_limiar@{m\_limiar}}
+\index{m\_limiar@{m\_limiar}!SensorPIR@{SensorPIR}}
+\doxysubsubsection{\texorpdfstring{m\_limiar}{m\_limiar}}
+{\footnotesize\ttfamily \label{classSensorPIR_a0f74a57d217e1f1330dc17fd7a241577} 
+int Sensor\+PIR\+::m\+\_\+limiar\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Valor de referência para considerar o sensor acionado (presença detectada). 
+
+
+
+Definition at line \mbox{\hyperlink{SensorPIR_8hpp_source_l00019}{19}} of file \mbox{\hyperlink{SensorPIR_8hpp_source}{Sensor\+PIR.\+hpp}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\mbox{\hyperlink{SensorPIR_8hpp}{Sensor\+PIR.\+hpp}}\item 
+src/\mbox{\hyperlink{SensorPIR_8cpp}{Sensor\+PIR.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,56 @@
+\doxysection{main.\+cpp}
+\hypertarget{main_8cpp_source}{}\label{main_8cpp_source}\index{src/main.cpp@{src/main.cpp}}
+\mbox{\hyperlink{main_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <stdexcept>}}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00015}\mbox{\hyperlink{main_8cpp_ab7e1791213a42ec369e2f7f57aed5d5b}{00015}}\ \textcolor{keyword}{enum\ class}\ \mbox{\hyperlink{main_8cpp_ab7e1791213a42ec369e2f7f57aed5d5b}{Operacao}}\ \{}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00016}\mbox{\hyperlink{main_8cpp_ab7e1791213a42ec369e2f7f57aed5d5ba115988eaf80c0cca11a066b82109a5dd}{00016}}\ \ \ \ \ \mbox{\hyperlink{main_8cpp_ab7e1791213a42ec369e2f7f57aed5d5ba115988eaf80c0cca11a066b82109a5dd}{SOMA}},\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00017}\mbox{\hyperlink{main_8cpp_ab7e1791213a42ec369e2f7f57aed5d5ba1b14b1cd8ea8779c180938e00fa6f9f3}{00017}}\ \ \ \ \ \mbox{\hyperlink{main_8cpp_ab7e1791213a42ec369e2f7f57aed5d5ba1b14b1cd8ea8779c180938e00fa6f9f3}{SUBTRACAO}},\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00018}\mbox{\hyperlink{main_8cpp_ab7e1791213a42ec369e2f7f57aed5d5bac5c0b934c08f41ffb05f7db767ab3457}{00018}}\ \ \ \ \ \mbox{\hyperlink{main_8cpp_ab7e1791213a42ec369e2f7f57aed5d5bac5c0b934c08f41ffb05f7db767ab3457}{MULTIPLICACAO}},}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00019}\mbox{\hyperlink{main_8cpp_ab7e1791213a42ec369e2f7f57aed5d5badfa8ad465c61e4d33e95cc436d552106}{00019}}\ \ \ \ \ \mbox{\hyperlink{main_8cpp_ab7e1791213a42ec369e2f7f57aed5d5badfa8ad465c61e4d33e95cc436d552106}{DIVISAO}}\ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00020}00020\ \};}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00029}\mbox{\hyperlink{classCalculadora}{00029}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classCalculadora_ae2c9648667ced66101bbe97523c2cd78}{Calculadora}}\ \{}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00030}00030\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00031}\mbox{\hyperlink{classCalculadora_a52f9d315e1608e6657c68615697d2e2b}{00031}}\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classCalculadora_a52f9d315e1608e6657c68615697d2e2b}{ultimoResultado}};\ }
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00033}00033\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00039}\mbox{\hyperlink{classCalculadora_ae2c9648667ced66101bbe97523c2cd78}{00039}}\ \ \ \ \ \mbox{\hyperlink{classCalculadora_ae2c9648667ced66101bbe97523c2cd78}{Calculadora}}()\ :\ \mbox{\hyperlink{classCalculadora_a52f9d315e1608e6657c68615697d2e2b}{ultimoResultado}}(0.0)\ \{\}}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00048}\mbox{\hyperlink{classCalculadora_a8dc90c105a8fcd8d7a790799ad1423e2}{00048}}\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classCalculadora_a8dc90c105a8fcd8d7a790799ad1423e2}{somar}}(\textcolor{keywordtype}{double}\ a,\ \textcolor{keywordtype}{double}\ b)\ \{}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00049}00049\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classCalculadora_a52f9d315e1608e6657c68615697d2e2b}{ultimoResultado}}\ =\ a\ +\ b;}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00050}00050\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classCalculadora_a52f9d315e1608e6657c68615697d2e2b}{ultimoResultado}};}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00051}00051\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00062}\mbox{\hyperlink{classCalculadora_a0dd12a7c3554bc8c574c1cf0f8c91940}{00062}}\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classCalculadora_a0dd12a7c3554bc8c574c1cf0f8c91940}{dividir}}(\textcolor{keywordtype}{double}\ a,\ \textcolor{keywordtype}{double}\ b)\ \{}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00063}00063\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (b\ ==\ 0.0)\ \{}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Divisão\ por\ zero\ não\ é\ permitida."{}});}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00065}00065\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00066}00066\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classCalculadora_a52f9d315e1608e6657c68615697d2e2b}{ultimoResultado}}\ =\ a\ /\ b;}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00067}00067\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classCalculadora_a52f9d315e1608e6657c68615697d2e2b}{ultimoResultado}};}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00068}00068\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00074}\mbox{\hyperlink{classCalculadora_a7b74ec66bef91cb22eb88bb5ca5d260e}{00074}}\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{classCalculadora_a7b74ec66bef91cb22eb88bb5ca5d260e}{getUltimoResultado}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00075}00075\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classCalculadora_a52f9d315e1608e6657c68615697d2e2b}{ultimoResultado}};}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00076}00076\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00077}00077\ \};}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00083}\mbox{\hyperlink{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{00083}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}}()\ \{}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00084}00084\ \ \ \ \ \mbox{\hyperlink{classCalculadora}{Calculadora}}\ calc;}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00085}00085\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00086}00086\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Soma:\ "{}}\ <<\ calc.\mbox{\hyperlink{classCalculadora_a8dc90c105a8fcd8d7a790799ad1423e2}{somar}}(10.0,\ 5.0)\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00087}00087\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00088}00088\ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00089}00089\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Divisão:\ "{}}\ <<\ calc.\mbox{\hyperlink{classCalculadora_a0dd12a7c3554bc8c574c1cf0f8c91940}{dividir}}(10.0,\ 2.0)\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00090}00090\ \ \ \ \ \}\ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::invalid\_argument\&\ e)\ \{}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00091}00091\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Erro:\ "{}}\ <<\ e.what()\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00092}00092\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00093}00093\ }
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00094}00094\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{main_8cpp_source_l00095}00095\ \}}
+
+\end{DoxyCode}

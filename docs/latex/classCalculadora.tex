@@ -1,0 +1,206 @@
+\doxysection{Calculadora Class Reference}
+\hypertarget{classCalculadora}{}\label{classCalculadora}\index{Calculadora@{Calculadora}}
+
+
+Classe responsável por realizar cálculos aritméticos básicos.  
+
+
+
+
+Collaboration diagram for Calculadora\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{classCalculadora__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classCalculadora_ae2c9648667ced66101bbe97523c2cd78}{Calculadora}} ()
+\begin{DoxyCompactList}\small\item\em Construtor padrão da classe \doxylink{classCalculadora}{Calculadora}. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classCalculadora_a8dc90c105a8fcd8d7a790799ad1423e2}{somar}} (double a, double b)
+\begin{DoxyCompactList}\small\item\em Soma dois números reais. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classCalculadora_a0dd12a7c3554bc8c574c1cf0f8c91940}{dividir}} (double a, double b)
+\begin{DoxyCompactList}\small\item\em Realiza a divisão entre dois números reais. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{classCalculadora_a7b74ec66bef91cb22eb88bb5ca5d260e}{get\+Ultimo\+Resultado}} () const
+\begin{DoxyCompactList}\small\item\em Retorna o resultado da última operação. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{classCalculadora_a52f9d315e1608e6657c68615697d2e2b}{ultimo\+Resultado}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Classe responsável por realizar cálculos aritméticos básicos. 
+
+A classe \doxylink{classCalculadora}{Calculadora} guarda o histórico da última operação e fornece métodos seguros para soma e divisão. 
+
+Definition at line \mbox{\hyperlink{main_8cpp_source_l00029}{29}} of file \mbox{\hyperlink{main_8cpp_source}{main.\+cpp}}.
+
+
+
+\label{doc-constructors}
+\Hypertarget{classCalculadora_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classCalculadora_ae2c9648667ced66101bbe97523c2cd78}\index{Calculadora@{Calculadora}!Calculadora@{Calculadora}}
+\index{Calculadora@{Calculadora}!Calculadora@{Calculadora}}
+\doxysubsubsection{\texorpdfstring{Calculadora()}{Calculadora()}}
+{\footnotesize\ttfamily \label{classCalculadora_ae2c9648667ced66101bbe97523c2cd78} 
+Calculadora\+::\+Calculadora (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Construtor padrão da classe \doxylink{classCalculadora}{Calculadora}. 
+
+Inicializa a variável {\ttfamily \doxylink{classCalculadora_a52f9d315e1608e6657c68615697d2e2b}{ultimo\+Resultado}} com valor 0.\+0. 
+
+Definition at line \mbox{\hyperlink{main_8cpp_source_l00039}{39}} of file \mbox{\hyperlink{main_8cpp_source}{main.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00039\ :\ \mbox{\hyperlink{classCalculadora_a52f9d315e1608e6657c68615697d2e2b}{ultimoResultado}}(0.0)\ \{\}}
+
+\end{DoxyCode}
+
+
+\label{doc-func-members}
+\Hypertarget{classCalculadora_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classCalculadora_a0dd12a7c3554bc8c574c1cf0f8c91940}\index{Calculadora@{Calculadora}!dividir@{dividir}}
+\index{dividir@{dividir}!Calculadora@{Calculadora}}
+\doxysubsubsection{\texorpdfstring{dividir()}{dividir()}}
+{\footnotesize\ttfamily \label{classCalculadora_a0dd12a7c3554bc8c574c1cf0f8c91940} 
+double Calculadora\+::dividir (\begin{DoxyParamCaption}\item[{double}]{a}{, }\item[{double}]{b}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Realiza a divisão entre dois números reais. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & Numerador. \\
+\hline
+{\em b} & Denominador. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+O resultado da divisão {\ttfamily a / b}. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::invalid\+\_\+argument} & Lançado se o parâmetro {\ttfamily b} for igual a zero. \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyWarning}{Warning}
+Lembre-\/se de capturar a exceção caso passe 0 como divisor. 
+\end{DoxyWarning}
+
+
+Definition at line \mbox{\hyperlink{main_8cpp_source_l00062}{62}} of file \mbox{\hyperlink{main_8cpp_source}{main.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (b\ ==\ 0.0)\ \{}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Divisão\ por\ zero\ não\ é\ permitida."{}});}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classCalculadora_a52f9d315e1608e6657c68615697d2e2b}{ultimoResultado}}\ =\ a\ /\ b;}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classCalculadora_a52f9d315e1608e6657c68615697d2e2b}{ultimoResultado}};}
+\DoxyCodeLine{00068\ \ \ \ \ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=267pt]{classCalculadora_a0dd12a7c3554bc8c574c1cf0f8c91940_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classCalculadora_a7b74ec66bef91cb22eb88bb5ca5d260e}\index{Calculadora@{Calculadora}!getUltimoResultado@{getUltimoResultado}}
+\index{getUltimoResultado@{getUltimoResultado}!Calculadora@{Calculadora}}
+\doxysubsubsection{\texorpdfstring{getUltimoResultado()}{getUltimoResultado()}}
+{\footnotesize\ttfamily \label{classCalculadora_a7b74ec66bef91cb22eb88bb5ca5d260e} 
+double Calculadora\+::get\+Ultimo\+Resultado (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Retorna o resultado da última operação. 
+
+\begin{DoxyReturn}{Returns}
+O último resultado armazenado. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{main_8cpp_source_l00074}{74}} of file \mbox{\hyperlink{main_8cpp_source}{main.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classCalculadora_a52f9d315e1608e6657c68615697d2e2b}{ultimoResultado}};}
+\DoxyCodeLine{00076\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classCalculadora_a8dc90c105a8fcd8d7a790799ad1423e2}\index{Calculadora@{Calculadora}!somar@{somar}}
+\index{somar@{somar}!Calculadora@{Calculadora}}
+\doxysubsubsection{\texorpdfstring{somar()}{somar()}}
+{\footnotesize\ttfamily \label{classCalculadora_a8dc90c105a8fcd8d7a790799ad1423e2} 
+double Calculadora\+::somar (\begin{DoxyParamCaption}\item[{double}]{a}{, }\item[{double}]{b}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Soma dois números reais. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & Primeiro valor da adição. \\
+\hline
+{\em b} & Segundo valor da adição. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+O resultado da soma entre {\ttfamily a} e {\ttfamily b}. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{main_8cpp_source_l00048}{48}} of file \mbox{\hyperlink{main_8cpp_source}{main.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classCalculadora_a52f9d315e1608e6657c68615697d2e2b}{ultimoResultado}}\ =\ a\ +\ b;}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classCalculadora_a52f9d315e1608e6657c68615697d2e2b}{ultimoResultado}};}
+\DoxyCodeLine{00051\ \ \ \ \ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=267pt]{classCalculadora_a8dc90c105a8fcd8d7a790799ad1423e2_icgraph}
+\end{center}
+\end{figure}
+
+
+\label{doc-variable-members}
+\Hypertarget{classCalculadora_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classCalculadora_a52f9d315e1608e6657c68615697d2e2b}\index{Calculadora@{Calculadora}!ultimoResultado@{ultimoResultado}}
+\index{ultimoResultado@{ultimoResultado}!Calculadora@{Calculadora}}
+\doxysubsubsection{\texorpdfstring{ultimoResultado}{ultimoResultado}}
+{\footnotesize\ttfamily \label{classCalculadora_a52f9d315e1608e6657c68615697d2e2b} 
+double Calculadora\+::ultimo\+Resultado\hspace{0.3cm}{\ttfamily [private]}}
+
+Armazena o resultado da última operação realizada. 
+
+Definition at line \mbox{\hyperlink{main_8cpp_source_l00031}{31}} of file \mbox{\hyperlink{main_8cpp_source}{main.\+cpp}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{main_8cpp}{main.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,32 @@
+\doxysection{Sensor\+PIR.\+cpp}
+\hypertarget{SensorPIR_8cpp_source}{}\label{SensorPIR_8cpp_source}\index{src/SensorPIR.cpp@{src/SensorPIR.cpp}}
+\mbox{\hyperlink{SensorPIR_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{SensorPIR_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{SensorPIR_8hpp}{SensorPIR.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{SensorPIR_8cpp_source_l00002}00002\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{\Hypertarget{SensorPIR_8cpp_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{\Hypertarget{SensorPIR_8cpp_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{SensorPIR_8cpp_source_l00005}\mbox{\hyperlink{classSensorPIR_a599155f9d1d4c090523282a8408fa3be}{00005}}\ \mbox{\hyperlink{classSensorPIR_a599155f9d1d4c090523282a8408fa3be}{SensorPIR::SensorPIR}}(\textcolor{keywordtype}{int}\ canal\_adc,\ \textcolor{keywordtype}{int}\ limiar\_deteccao)\ :\ \mbox{\hyperlink{classSensorPIR_a0f74a57d217e1f1330dc17fd7a241577}{m\_limiar}}(limiar\_deteccao)\ \{}
+\DoxyCodeLine{\Hypertarget{SensorPIR_8cpp_source_l00006}00006\ \ \ \ \ \textcolor{comment}{//\ Mapeia\ o\ arquivo\ lógico\ do\ sensor\ com\ base\ no\ canal\ descoberto\ no\ subsistema\ IIO}}
+\DoxyCodeLine{\Hypertarget{SensorPIR_8cpp_source_l00007}00007\ \ \ \ \ \mbox{\hyperlink{classSensorPIR_a50e213cc69e02013aad67167f200add7}{m\_caminho\_arquivo}}\ =\ \textcolor{stringliteral}{"{}/sys/bus/iio/devices/iio:device0/in\_voltage"{}}\ +\ std::to\_string(canal\_adc)\ +\ \textcolor{stringliteral}{"{}\_raw"{}};}
+\DoxyCodeLine{\Hypertarget{SensorPIR_8cpp_source_l00008}00008\ \}}
+\DoxyCodeLine{\Hypertarget{SensorPIR_8cpp_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{SensorPIR_8cpp_source_l00010}\mbox{\hyperlink{classSensorPIR_a2a8d63cabe29969e6b7a741a455dd360}{00010}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classSensorPIR_a2a8d63cabe29969e6b7a741a455dd360}{SensorPIR::lerValorBruto}}()\ \{}
+\DoxyCodeLine{\Hypertarget{SensorPIR_8cpp_source_l00011}00011\ \ \ \ \ std::ifstream\ arquivo(\mbox{\hyperlink{classSensorPIR_a50e213cc69e02013aad67167f200add7}{m\_caminho\_arquivo}});}
+\DoxyCodeLine{\Hypertarget{SensorPIR_8cpp_source_l00012}00012\ \ \ \ \ \textcolor{keywordtype}{int}\ valor\_lido\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{SensorPIR_8cpp_source_l00013}00013\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{SensorPIR_8cpp_source_l00014}00014\ \ \ \ \ \textcolor{keywordflow}{if}\ (arquivo.is\_open())\ \{}
+\DoxyCodeLine{\Hypertarget{SensorPIR_8cpp_source_l00015}00015\ \ \ \ \ \ \ \ \ arquivo\ >>\ valor\_lido;}
+\DoxyCodeLine{\Hypertarget{SensorPIR_8cpp_source_l00016}00016\ \ \ \ \ \ \ \ \ arquivo.close();}
+\DoxyCodeLine{\Hypertarget{SensorPIR_8cpp_source_l00017}00017\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{SensorPIR_8cpp_source_l00018}00018\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Erro:\ Não\ foi\ possível\ abrir\ o\ arquivo\ do\ sensor\ em\ "{}}\ <<\ \mbox{\hyperlink{classSensorPIR_a50e213cc69e02013aad67167f200add7}{m\_caminho\_arquivo}}\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{SensorPIR_8cpp_source_l00019}00019\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{SensorPIR_8cpp_source_l00020}00020\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{SensorPIR_8cpp_source_l00021}00021\ \ \ \ \ \textcolor{keywordflow}{return}\ valor\_lido;}
+\DoxyCodeLine{\Hypertarget{SensorPIR_8cpp_source_l00022}00022\ \}}
+\DoxyCodeLine{\Hypertarget{SensorPIR_8cpp_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{SensorPIR_8cpp_source_l00024}\mbox{\hyperlink{classSensorPIR_addde127b473dade62347d44af3b7a9fe}{00024}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classSensorPIR_addde127b473dade62347d44af3b7a9fe}{SensorPIR::verificarViolacao}}()\ \{}
+\DoxyCodeLine{\Hypertarget{SensorPIR_8cpp_source_l00025}00025\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classSensorPIR_a2a8d63cabe29969e6b7a741a455dd360}{lerValorBruto}}()\ >\ \mbox{\hyperlink{classSensorPIR_a0f74a57d217e1f1330dc17fd7a241577}{m\_limiar}};}
+\DoxyCodeLine{\Hypertarget{SensorPIR_8cpp_source_l00026}00026\ \}}
+
+\end{DoxyCode}

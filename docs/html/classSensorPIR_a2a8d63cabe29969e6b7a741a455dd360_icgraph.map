@@ -1,0 +1,5 @@
+<map id="SensorPIR::lerValorBruto" name="SensorPIR::lerValorBruto">
+<area shape="rect" id="Node000001" title="Realiza a leitura instantânea do valor no arquivo do sensor." alt="" coords="257,5,436,33"/>
+<area shape="rect" id="Node000002" href="$classSensorPIR.html#addde127b473dade62347d44af3b7a9fe" title="Verifica se houve detecção de movimento com base no limiar configurado." alt="" coords="5,5,209,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="238,19,209,22,209,17,244,19"/>
+</map>

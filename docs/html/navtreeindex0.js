@@ -1,0 +1,23 @@
+var NAVTREEINDEX0 =
+{
+"SensorPIR_8cpp.html":[1,0,1,0],
+"SensorPIR_8cpp_source.html":[1,0,1,0],
+"SensorPIR_8hpp.html":[1,0,0,0],
+"SensorPIR_8hpp_source.html":[1,0,0,0],
+"annotated.html":[0,0],
+"classSensorPIR.html":[0,0,0],
+"classSensorPIR.html#a0f74a57d217e1f1330dc17fd7a241577":[0,0,0,4],
+"classSensorPIR.html#a2a8d63cabe29969e6b7a741a455dd360":[0,0,0,1],
+"classSensorPIR.html#a50e213cc69e02013aad67167f200add7":[0,0,0,3],
+"classSensorPIR.html#a599155f9d1d4c090523282a8408fa3be":[0,0,0,0],
+"classSensorPIR.html#addde127b473dade62347d44af3b7a9fe":[0,0,0,2],
+"classes.html":[0,1],
+"dir_68267d1309a1af8e8297ef4c3efbcdba.html":[1,0,1],
+"dir_d44c64559bbebec7f509842c48db8b23.html":[1,0,0],
+"files.html":[1,0],
+"functions.html":[0,2,0],
+"functions_func.html":[0,2,1],
+"functions_vars.html":[0,2,2],
+"index.html":[],
+"pages.html":[]
+};
