@@ -42,7 +42,7 @@ Este sistema foi projetado para ser executado no espaço de usuário Linux do ki
 No terminal da máquina virtual Linux, utilize a toolchain fornecida para gerar o executável compatível com a arquitetura ARM da placa. Na raiz do projeto, execute:
 
 ```bash
-arm-buildroot-linux-gnueabihf-g++ src/SensorPIR.cpp main.cpp -I include -o monitoramento_carga
+arm-buildroot-linux-gnueabihf-g++ src/SensorPIR.cpp main.cpp -I include -o SensorMovimento
 ```
 
 *(Nota: Certifique-se de que a toolchain esteja no seu PATH ou utilize o caminho completo até o binário).*
@@ -51,7 +51,7 @@ arm-buildroot-linux-gnueabihf-g++ src/SensorPIR.cpp main.cpp -I include -o monit
 Com o kit energizado (cabo na porta PWR_IN) e conectado à rede via cabo Ethernet, envie o arquivo executável gerado para a placa via SCP. Substitua `<ip_da_placa>` pelo IP real do kit (ex: `192.168.42.2`):
 
 ```bash
-scp monitoramento_carga root@<ip_da_placa>:/home/root
+scp SensorMovimento root@<ip_da_placa>:/home/root
 ```
 *(A senha padrão do usuário root é `root`).*
 
@@ -59,7 +59,7 @@ scp monitoramento_carga root@<ip_da_placa>:/home/root
 Acesse o terminal do kit através de uma conexão SSH (ex: `ssh root@192.168.42.2`) ou via cabo serial (TeraTerm) e execute o programa:
 
 ```bash
-./monitoramento_carga
+./SensorMovimento
 ```
 O programa iniciará o monitoramento contínuo em tempo real, exibindo as leituras do canal 13 do ADC e emitindo alertas no console caso o sensor PIR detecte presença humana.
 
