@@ -1,4 +1,4 @@
-# Monitoramento Inteligente de Carga - Sensor de Presença (PIR)
+# Monitoramento Inteligente de Carga - Sensor de Presença (PIR) - GRUPO MEDEIROS_LIMA / GOMES / ARAUJO
 
 ## 📌 Descrição Geral do Projeto
 
