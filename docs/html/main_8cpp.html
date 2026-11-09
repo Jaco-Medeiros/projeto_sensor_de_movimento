@@ -93,21 +93,29 @@ $(function(){initNavTree('main_8cpp.html','',''); });
 <div class="contents">
 <div class="textblock"><code>#include &lt;iostream&gt;</code><br />
 <code>#include &lt;unistd.h&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
 <code>#include &quot;<a class="el" href="SensorPIR_8hpp_source.html">SensorPIR.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ClienteUDP_8hpp_source.html">ClienteUDP.hpp</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for main.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8cpp__incl.png" border="0" usemap="#amain_8cpp" loading="lazy" alt=""/></div>
 <map name="amain_8cpp" id="amain_8cpp">
-<area shape="rect" title=" " alt="" coords="104,5,186,33"/>
+<area shape="rect" title=" " alt="" coords="179,5,260,33"/>
 <area shape="rect" title=" " alt="" coords="5,81,85,109"/>
-<area shape="poly" title=" " alt="" coords="126,36,77,74,73,70,129,31"/>
+<area shape="poly" title=" " alt="" coords="187,36,91,77,89,72,190,31"/>
 <area shape="rect" title=" " alt="" coords="108,81,182,109"/>
-<area shape="poly" title=" " alt="" coords="146,31,148,66,142,64,144,36"/>
-<area shape="rect" href="SensorPIR_8hpp.html" title="Definição da classe SensorPIR para o monitoramento de presença." alt="" coords="205,81,320,109"/>
-<area shape="poly" title=" " alt="" coords="166,31,232,72,226,74,166,36"/>
-<area shape="rect" title=" " alt="" coords="233,157,292,184"/>
-<area shape="poly" title=" " alt="" coords="264,107,265,142,260,139,260,111"/>
+<area shape="poly" title=" " alt="" coords="208,32,171,72,167,68,204,35"/>
+<area shape="rect" title=" " alt="" coords="285,157,344,184"/>
+<area shape="poly" title=" " alt="" coords="222,31,231,68,247,107,264,128,284,148,279,147,260,132,243,110,226,70,220,36"/>
+<area shape="rect" href="SensorPIR_8hpp.html" title="Definição da classe SensorPIR para o monitoramento de presença." alt="" coords="257,81,372,109"/>
+<area shape="poly" title=" " alt="" coords="237,31,288,71,283,72,236,36"/>
+<area shape="rect" href="ClienteUDP_8hpp.html" title=" " alt="" coords="395,81,516,109"/>
+<area shape="poly" title=" " alt="" coords="261,31,402,75,397,77,261,36"/>
+<area shape="poly" title=" " alt="" coords="316,107,317,143,312,139,312,111"/>
+<area shape="poly" title=" " alt="" coords="433,109,354,152,352,147,428,110"/>
+<area shape="rect" title=" " alt="" coords="408,157,503,184"/>
+<area shape="poly" title=" " alt="" coords="458,107,458,143,454,139,454,111"/>
 </map>
 </div>
 </div>
@@ -133,46 +141,48 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00005">5</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">    5</span>           {</div>
-<div class="line"><span class="lineno">    6</span>    std::cout &lt;&lt; <span class="stringliteral">&quot;Iniciando sistema de monitoramento tatico de carga...&quot;</span> &lt;&lt; std::endl;</div>
-<div class="line"><span class="lineno">    7</span>    std::cout &lt;&lt; <span class="stringliteral">&quot;Inicializando Sensor PIR Digital no Canal 13.&quot;</span> &lt;&lt; std::endl;</div>
-<div class="line"><span class="lineno">    8</span>    std::cout &lt;&lt; <span class="stringliteral">&quot;---------------------------------------------------&quot;</span> &lt;&lt; std::endl;</div>
-<div class="line"><span class="lineno">    9</span>    </div>
-<div class="line"><span class="lineno">   10</span>    <span class="comment">// Instancia o objeto do sensor informando o canal 13 descoberto fisicamente</span></div>
-<div class="line"><span class="lineno">   11</span>    <a class="code hl_class" href="classSensorPIR.html">SensorPIR</a> sensorCarga(13);</div>
-<div class="line"><span class="lineno">   12</span> </div>
-<div class="line"><span class="lineno">   13</span>    <span class="comment">// Loop infinito para leitura contínua e em tempo real</span></div>
-<div class="line"><span class="lineno">   14</span>    <span class="keywordflow">while</span> (<span class="keyword">true</span>) {</div>
-<div class="line"><span class="lineno">   15</span>        <span class="keywordtype">int</span> valorBruto = sensorCarga.lerValorBruto();</div>
-<div class="line"><span class="lineno">   16</span>        <span class="keywordtype">bool</span> violacao = sensorCarga.verificarViolacao();</div>
-<div class="line"><span class="lineno">   17</span> </div>
-<div class="line"><span class="lineno">   18</span>        std::cout &lt;&lt; <span class="stringliteral">&quot;ADC [Canal 13]: &quot;</span> &lt;&lt; valorBruto &lt;&lt; <span class="stringliteral">&quot; \t| Estado: &quot;</span>;</div>
-<div class="line"><span class="lineno">   19</span>        </div>
-<div class="line"><span class="lineno">   20</span>        <span class="keywordflow">if</span> (violacao) {</div>
-<div class="line"><span class="lineno">   21</span>            std::cout &lt;&lt; <span class="stringliteral">&quot;[ALERTA CRITICO] Presenca humana detectada! Possivel violacao.&quot;</span> &lt;&lt; std::endl;</div>
-<div class="line"><span class="lineno">   22</span>        } <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">   23</span>            std::cout &lt;&lt; <span class="stringliteral">&quot;Seguro. Nenhuma movimentacao.&quot;</span> &lt;&lt; std::endl;</div>
-<div class="line"><span class="lineno">   24</span>        }</div>
-<div class="line"><span class="lineno">   25</span> </div>
-<div class="line"><span class="lineno">   26</span>        <span class="comment">// Pausa de 500ms (500000 microssegundos) entre leituras para estabilidade do loop</span></div>
-<div class="line"><span class="lineno">   27</span>        usleep(500000);</div>
-<div class="line"><span class="lineno">   28</span>    }</div>
-<div class="line"><span class="lineno">   29</span> </div>
-<div class="line"><span class="lineno">   30</span>    <span class="keywordflow">return</span> 0;</div>
-<div class="line"><span class="lineno">   31</span>}</div>
+<p class="definition">Definition at line <a class="el" href="main_8cpp_source.html#l00007">7</a> of file <a class="el" href="main_8cpp_source.html">main.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">    7</span>           {</div>
+<div class="line"><span class="lineno">    8</span>    <span class="comment">// Altere para o IP e porta reais do computador que servirá como servidor central</span></div>
+<div class="line"><span class="lineno">    9</span>    std::string ip_servidor = <span class="stringliteral">&quot;10.0.2.15&quot;</span>; </div>
+<div class="line"><span class="lineno">   10</span>    <span class="keywordtype">int</span> porta_servidor = 8080;</div>
+<div class="line"><span class="lineno">   11</span> </div>
+<div class="line"><span class="lineno">   12</span>    <a class="code hl_class" href="classSensorPIR.html">SensorPIR</a> sensorCarga(13);</div>
+<div class="line"><span class="lineno">   13</span>    <a class="code hl_class" href="classClienteUDP.html">ClienteUDP</a> cliente(ip_servidor, porta_servidor);</div>
+<div class="line"><span class="lineno">   14</span> </div>
+<div class="line"><span class="lineno">   15</span>    std::cout &lt;&lt; <span class="stringliteral">&quot;Iniciando monitoramento e transmissao UDP para &quot;</span> &lt;&lt; ip_servidor &lt;&lt; <span class="stringliteral">&quot;:&quot;</span> &lt;&lt; porta_servidor &lt;&lt; std::endl;</div>
+<div class="line"><span class="lineno">   16</span> </div>
+<div class="line"><span class="lineno">   17</span>    <span class="keywordflow">while</span> (<span class="keyword">true</span>) {</div>
+<div class="line"><span class="lineno">   18</span>        <span class="keywordtype">int</span> valorBruto = sensorCarga.lerValorBruto();</div>
+<div class="line"><span class="lineno">   19</span>        <span class="keywordtype">bool</span> violacao = sensorCarga.verificarViolacao();</div>
+<div class="line"><span class="lineno">   20</span>        <span class="keywordtype">int</span> estado = violacao ? 1 : 0;</div>
+<div class="line"><span class="lineno">   21</span> </div>
+<div class="line"><span class="lineno">   22</span>        <span class="comment">// Protocolo CSV: ID_GRUPO,ID_SENSOR,VALOR_BRUTO,ESTADO_ALERTA</span></div>
+<div class="line"><span class="lineno">   23</span>        std::string mensagem = <span class="stringliteral">&quot;GRUPO_X,PIR_AM312,&quot;</span> + std::to_string(valorBruto) + <span class="stringliteral">&quot;,&quot;</span> + std::to_string(estado);</div>
+<div class="line"><span class="lineno">   24</span>        </div>
+<div class="line"><span class="lineno">   25</span>        cliente.enviarMensagem(mensagem);</div>
+<div class="line"><span class="lineno">   26</span> </div>
+<div class="line"><span class="lineno">   27</span>        std::cout &lt;&lt; <span class="stringliteral">&quot;Enviado: &quot;</span> &lt;&lt; mensagem &lt;&lt; std::endl;</div>
+<div class="line"><span class="lineno">   28</span>        usleep(500000); <span class="comment">// 500ms</span></div>
+<div class="line"><span class="lineno">   29</span>    }</div>
+<div class="line"><span class="lineno">   30</span> </div>
+<div class="line"><span class="lineno">   31</span>    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><span class="lineno">   32</span>}</div>
+<div class="ttc" id="aclassClienteUDP_html"><div class="ttname"><a href="classClienteUDP.html">ClienteUDP</a></div><div class="ttdef"><b>Definition</b> <a href="ClienteUDP_8hpp_source.html#l00007">ClienteUDP.hpp:7</a></div></div>
 <div class="ttc" id="aclassSensorPIR_html"><div class="ttname"><a href="classSensorPIR.html">SensorPIR</a></div><div class="ttdoc">Classe responsável por gerenciar o sensor de presença (PIR).</div><div class="ttdef"><b>Definition</b> <a href="SensorPIR_8hpp_source.html#l00016">SensorPIR.hpp:16</a></div></div>
 </div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4_cgraph.png" border="0" usemap="#amain_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4_cgraph" loading="lazy" alt=""/></div>
 <map name="amain_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4_cgraph" id="amain_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4_cgraph">
-<area shape="rect" title=" " alt="" coords="5,5,60,33"/>
-<area shape="rect" href="classSensorPIR.html#a2a8d63cabe29969e6b7a741a455dd360" title="Realiza a leitura instantânea do valor no arquivo do sensor." alt="" coords="359,5,538,33"/>
-<area shape="poly" title=" " alt="" coords="60,17,344,17,344,22,60,22"/>
-<area shape="rect" href="classSensorPIR.html#addde127b473dade62347d44af3b7a9fe" title="Verifica se houve detecção de movimento com base no limiar configurado." alt="" coords="108,31,311,58"/>
-<area shape="poly" title=" " alt="" coords="60,20,96,27,91,29,60,26"/>
-<area shape="poly" title=" " alt="" coords="311,31,341,31,346,30,312,36"/>
+<area shape="rect" title=" " alt="" coords="5,56,60,84"/>
+<area shape="rect" href="classClienteUDP.html#aa8f79b7ea509be8fdcf9686130a2e4fe" title=" " alt="" coords="108,5,324,33"/>
+<area shape="poly" title=" " alt="" coords="59,60,149,35,147,40,61,65"/>
+<area shape="rect" href="classSensorPIR.html#a2a8d63cabe29969e6b7a741a455dd360" title="Realiza a leitura instantânea do valor no arquivo do sensor." alt="" coords="372,81,551,109"/>
+<area shape="poly" title=" " alt="" coords="60,69,357,86,356,92,60,74"/>
+<area shape="rect" href="classSensorPIR.html#addde127b473dade62347d44af3b7a9fe" title="Verifica se houve detecção de movimento com base no limiar configurado." alt="" coords="114,107,318,134"/>
+<area shape="poly" title=" " alt="" coords="60,75,150,100,146,104,60,80"/>
+<area shape="poly" title=" " alt="" coords="318,107,354,106,359,106,318,113"/>
 </map>
 </div>
 

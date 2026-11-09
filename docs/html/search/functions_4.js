@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['somar_0',['somar',['../classCalculadora.html#a8dc90c105a8fcd8d7a790799ad1423e2',1,'Calculadora']]]
+  ['sensorpir_0',['SensorPIR',['../classSensorPIR.html#a599155f9d1d4c090523282a8408fa3be',1,'SensorPIR']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['lervalorbruto_0',['lerValorBruto',['../classSensorPIR.html#a2a8d63cabe29969e6b7a741a455dd360',1,'SensorPIR']]]
+  ['clienteudp_0',['ClienteUDP',['../classClienteUDP.html#ac1b250a7d8daecc9b1426b9834d58abb',1,'ClienteUDP']]]
 ];

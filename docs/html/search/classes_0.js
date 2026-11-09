@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['sensorpir_0',['SensorPIR',['../classSensorPIR.html',1,'']]]
+  ['clienteudp_0',['ClienteUDP',['../classClienteUDP.html',1,'']]]
 ];

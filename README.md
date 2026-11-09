@@ -63,5 +63,31 @@ Acesse o terminal do kit através de uma conexão SSH (ex: `ssh root@192.168.42.
 ```
 O programa iniciará o monitoramento contínuo em tempo real, exibindo as leituras do canal 13 do ADC e emitindo alertas no console caso o sensor PIR detecte presença humana.
 
+![Teste do sensor PIR no terminal](imagens/TerminalPlaca.png)
 ---
+### 4\. Compilação Cruzada do Código C++ com UDP (na VM Linux)
 
+Na raiz do diretório do seu projeto (`projeto_sensor_de_movimento`), compile o código unindo todas as classes geradas:
+
+```sh
+arm-buildroot-linux-gnueabihf-g++ src/SensorPIR.cpp src/ClienteUDP.cpp main.cpp -I include -o Monitoramento_UDP
+```
+
+### 5\. Transferência para o Kit STM32 (via SCP)
+
+Com a placa energizada e o cabo de rede conectado, envie o arquivo executável para o diretório `/home/root`:
+
+```sh
+scp Monitoramento_UDP root@192.168.42.2:/home/root
+```
+
+### 6\. Execução no Hardware (via SSH)
+
+Acesse remotamente o terminal da placa e inicie o programa embarcado:
+
+```sh
+ssh root@192.168.42.2
+./monitoramento_udp
+```
+
+*(Neste momento, a interface gráfica no seu PC começará a plotar o gráfico em tempo real).*

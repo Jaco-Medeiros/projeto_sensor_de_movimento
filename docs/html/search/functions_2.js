@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['sensorpir_0',['SensorPIR',['../classSensorPIR.html#a599155f9d1d4c090523282a8408fa3be',1,'SensorPIR']]]
+  ['lervalorbruto_0',['lerValorBruto',['../classSensorPIR.html#a2a8d63cabe29969e6b7a741a455dd360',1,'SensorPIR']]]
 ];

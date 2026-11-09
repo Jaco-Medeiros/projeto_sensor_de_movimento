@@ -46,7 +46,7 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"SensorPIR_8cpp.html"
+"ClienteUDP_8cpp.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

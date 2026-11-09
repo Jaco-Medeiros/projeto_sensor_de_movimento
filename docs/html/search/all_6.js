@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['ultimoresultado_0',['ultimoResultado',['../classCalculadora.html#a52f9d315e1608e6657c68615697d2e2b',1,'Calculadora']]]
+  ['_7eclienteudp_0',['~ClienteUDP',['../classClienteUDP.html#aa4401f61b071f432fa1d85dedd9d69a4',1,'ClienteUDP']]]
 ];

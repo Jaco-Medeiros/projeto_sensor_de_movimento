@@ -1,0 +1,154 @@
+\doxysection{Cliente\+UDP Class Reference}
+\hypertarget{classClienteUDP}{}\label{classClienteUDP}\index{ClienteUDP@{ClienteUDP}}
+
+
+{\ttfamily \#include $<$Cliente\+UDP.\+hpp$>$}
+
+
+
+Collaboration diagram for Cliente\+UDP\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=251pt]{classClienteUDP__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classClienteUDP_ac1b250a7d8daecc9b1426b9834d58abb}{Cliente\+UDP}} (const std\+::string \&ip\+\_\+servidor, int porta)
+\item 
+\mbox{\hyperlink{classClienteUDP_aa4401f61b071f432fa1d85dedd9d69a4}{\texorpdfstring{$\sim$}{\string~}\+Cliente\+UDP}} ()
+\item 
+bool \mbox{\hyperlink{classClienteUDP_aa8f79b7ea509be8fdcf9686130a2e4fe}{enviar\+Mensagem}} (const std\+::string \&mensagem)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{classClienteUDP_ac1f201121ae8ca365ed914b0bc079fcc}{m\+\_\+socket\+\_\+fd}}
+\item 
+struct sockaddr\+\_\+in \mbox{\hyperlink{classClienteUDP_a6f1aadce37f7840537809ed765b25e1c}{m\+\_\+endereco\+\_\+servidor}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{ClienteUDP_8hpp_source_l00007}{7}} of file \mbox{\hyperlink{ClienteUDP_8hpp_source}{Cliente\+UDP.\+hpp}}.
+
+
+
+\label{doc-constructors}
+\Hypertarget{classClienteUDP_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classClienteUDP_ac1b250a7d8daecc9b1426b9834d58abb}\index{ClienteUDP@{ClienteUDP}!ClienteUDP@{ClienteUDP}}
+\index{ClienteUDP@{ClienteUDP}!ClienteUDP@{ClienteUDP}}
+\doxysubsubsection{\texorpdfstring{ClienteUDP()}{ClienteUDP()}}
+{\footnotesize\ttfamily \label{classClienteUDP_ac1b250a7d8daecc9b1426b9834d58abb} 
+Cliente\+UDP\+::\+Cliente\+UDP (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{ip\+\_\+servidor}{, }\item[{int}]{porta}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ClienteUDP_8cpp_source_l00007}{7}} of file \mbox{\hyperlink{ClienteUDP_8cpp_source}{Cliente\+UDP.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00007\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00008\ \ \ \ \ \mbox{\hyperlink{classClienteUDP_ac1f201121ae8ca365ed914b0bc079fcc}{m\_socket\_fd}}\ =\ socket(AF\_INET,\ SOCK\_DGRAM,\ 0);}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{classClienteUDP_ac1f201121ae8ca365ed914b0bc079fcc}{m\_socket\_fd}}\ <\ 0)\ \{}
+\DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Erro\ ao\ criar\ socket\ UDP"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00012\ \ \ \ \ \}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \ \ \ \ memset(\&\mbox{\hyperlink{classClienteUDP_a6f1aadce37f7840537809ed765b25e1c}{m\_endereco\_servidor}},\ 0,\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{classClienteUDP_a6f1aadce37f7840537809ed765b25e1c}{m\_endereco\_servidor}}));}
+\DoxyCodeLine{00015\ \ \ \ \ \mbox{\hyperlink{classClienteUDP_a6f1aadce37f7840537809ed765b25e1c}{m\_endereco\_servidor}}.sin\_family\ =\ AF\_INET;}
+\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{classClienteUDP_a6f1aadce37f7840537809ed765b25e1c}{m\_endereco\_servidor}}.sin\_port\ =\ htons(porta);}
+\DoxyCodeLine{00017\ \ \ \ \ inet\_pton(AF\_INET,\ ip\_servidor.c\_str(),\ \&\mbox{\hyperlink{classClienteUDP_a6f1aadce37f7840537809ed765b25e1c}{m\_endereco\_servidor}}.sin\_addr);}
+\DoxyCodeLine{00018\ \}}
+
+\end{DoxyCode}
+\Hypertarget{classClienteUDP_aa4401f61b071f432fa1d85dedd9d69a4}\index{ClienteUDP@{ClienteUDP}!````~ClienteUDP@{\texorpdfstring{$\sim$}{\string~}ClienteUDP}}
+\index{````~ClienteUDP@{\texorpdfstring{$\sim$}{\string~}ClienteUDP}!ClienteUDP@{ClienteUDP}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}ClienteUDP()}{\string~ClienteUDP()}}
+{\footnotesize\ttfamily \label{classClienteUDP_aa4401f61b071f432fa1d85dedd9d69a4} 
+Cliente\+UDP\+::\texorpdfstring{$\sim$}{\string~}\+Cliente\+UDP (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ClienteUDP_8cpp_source_l00020}{20}} of file \mbox{\hyperlink{ClienteUDP_8cpp_source}{Cliente\+UDP.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{classClienteUDP_ac1f201121ae8ca365ed914b0bc079fcc}{m\_socket\_fd}}\ >=\ 0)\ \{}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ close(\mbox{\hyperlink{classClienteUDP_ac1f201121ae8ca365ed914b0bc079fcc}{m\_socket\_fd}});}
+\DoxyCodeLine{00023\ \ \ \ \ \}}
+\DoxyCodeLine{00024\ \}}
+
+\end{DoxyCode}
+
+
+\label{doc-func-members}
+\Hypertarget{classClienteUDP_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classClienteUDP_aa8f79b7ea509be8fdcf9686130a2e4fe}\index{ClienteUDP@{ClienteUDP}!enviarMensagem@{enviarMensagem}}
+\index{enviarMensagem@{enviarMensagem}!ClienteUDP@{ClienteUDP}}
+\doxysubsubsection{\texorpdfstring{enviarMensagem()}{enviarMensagem()}}
+{\footnotesize\ttfamily \label{classClienteUDP_aa8f79b7ea509be8fdcf9686130a2e4fe} 
+bool Cliente\+UDP\+::enviar\+Mensagem (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{mensagem}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{ClienteUDP_8cpp_source_l00026}{26}} of file \mbox{\hyperlink{ClienteUDP_8cpp_source}{Cliente\+UDP.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{classClienteUDP_ac1f201121ae8ca365ed914b0bc079fcc}{m\_socket\_fd}}\ <\ 0)\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00028\ \ \ \ \ }
+\DoxyCodeLine{00029\ \ \ \ \ ssize\_t\ bytes\_enviados\ =\ sendto(\mbox{\hyperlink{classClienteUDP_ac1f201121ae8ca365ed914b0bc079fcc}{m\_socket\_fd}},\ mensagem.c\_str(),\ mensagem.length(),\ 0,}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keyword}{struct}\ sockaddr*)\&\mbox{\hyperlink{classClienteUDP_a6f1aadce37f7840537809ed765b25e1c}{m\_endereco\_servidor}},\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{classClienteUDP_a6f1aadce37f7840537809ed765b25e1c}{m\_endereco\_servidor}}));}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordflow}{return}\ bytes\_enviados\ >=\ 0;}
+\DoxyCodeLine{00032\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=319pt]{classClienteUDP_aa8f79b7ea509be8fdcf9686130a2e4fe_icgraph}
+\end{center}
+\end{figure}
+
+
+\label{doc-variable-members}
+\Hypertarget{classClienteUDP_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classClienteUDP_a6f1aadce37f7840537809ed765b25e1c}\index{ClienteUDP@{ClienteUDP}!m\_endereco\_servidor@{m\_endereco\_servidor}}
+\index{m\_endereco\_servidor@{m\_endereco\_servidor}!ClienteUDP@{ClienteUDP}}
+\doxysubsubsection{\texorpdfstring{m\_endereco\_servidor}{m\_endereco\_servidor}}
+{\footnotesize\ttfamily \label{classClienteUDP_a6f1aadce37f7840537809ed765b25e1c} 
+struct sockaddr\+\_\+in Cliente\+UDP\+::m\+\_\+endereco\+\_\+servidor\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{ClienteUDP_8hpp_source_l00010}{10}} of file \mbox{\hyperlink{ClienteUDP_8hpp_source}{Cliente\+UDP.\+hpp}}.
+
+\Hypertarget{classClienteUDP_ac1f201121ae8ca365ed914b0bc079fcc}\index{ClienteUDP@{ClienteUDP}!m\_socket\_fd@{m\_socket\_fd}}
+\index{m\_socket\_fd@{m\_socket\_fd}!ClienteUDP@{ClienteUDP}}
+\doxysubsubsection{\texorpdfstring{m\_socket\_fd}{m\_socket\_fd}}
+{\footnotesize\ttfamily \label{classClienteUDP_ac1f201121ae8ca365ed914b0bc079fcc} 
+int Cliente\+UDP\+::m\+\_\+socket\+\_\+fd\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{ClienteUDP_8hpp_source_l00009}{9}} of file \mbox{\hyperlink{ClienteUDP_8hpp_source}{Cliente\+UDP.\+hpp}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\mbox{\hyperlink{ClienteUDP_8hpp}{Cliente\+UDP.\+hpp}}\item 
+src/\mbox{\hyperlink{ClienteUDP_8cpp}{Cliente\+UDP.\+cpp}}\end{DoxyCompactItemize}

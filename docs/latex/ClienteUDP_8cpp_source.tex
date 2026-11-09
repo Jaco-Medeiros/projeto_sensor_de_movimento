@@ -1,0 +1,38 @@
+\doxysection{Cliente\+UDP.\+cpp}
+\hypertarget{ClienteUDP_8cpp_source}{}\label{ClienteUDP_8cpp_source}\index{src/ClienteUDP.cpp@{src/ClienteUDP.cpp}}
+\mbox{\hyperlink{ClienteUDP_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{ClienteUDP_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{ClienteUDP_8hpp}{ClienteUDP.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{ClienteUDP_8cpp_source_l00002}00002\ \textcolor{preprocessor}{\#include\ <arpa/inet.h>}}
+\DoxyCodeLine{\Hypertarget{ClienteUDP_8cpp_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <unistd.h>}}
+\DoxyCodeLine{\Hypertarget{ClienteUDP_8cpp_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{\Hypertarget{ClienteUDP_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <cstring>}}
+\DoxyCodeLine{\Hypertarget{ClienteUDP_8cpp_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{ClienteUDP_8cpp_source_l00007}\mbox{\hyperlink{classClienteUDP_ac1b250a7d8daecc9b1426b9834d58abb}{00007}}\ \mbox{\hyperlink{classClienteUDP_ac1b250a7d8daecc9b1426b9834d58abb}{ClienteUDP::ClienteUDP}}(\textcolor{keyword}{const}\ std::string\&\ ip\_servidor,\ \textcolor{keywordtype}{int}\ porta)\ \{}
+\DoxyCodeLine{\Hypertarget{ClienteUDP_8cpp_source_l00008}00008\ \ \ \ \ \mbox{\hyperlink{classClienteUDP_ac1f201121ae8ca365ed914b0bc079fcc}{m\_socket\_fd}}\ =\ socket(AF\_INET,\ SOCK\_DGRAM,\ 0);}
+\DoxyCodeLine{\Hypertarget{ClienteUDP_8cpp_source_l00009}00009\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{classClienteUDP_ac1f201121ae8ca365ed914b0bc079fcc}{m\_socket\_fd}}\ <\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{ClienteUDP_8cpp_source_l00010}00010\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Erro\ ao\ criar\ socket\ UDP"{}}\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{ClienteUDP_8cpp_source_l00011}00011\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{ClienteUDP_8cpp_source_l00012}00012\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ClienteUDP_8cpp_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{ClienteUDP_8cpp_source_l00014}00014\ \ \ \ \ memset(\&\mbox{\hyperlink{classClienteUDP_a6f1aadce37f7840537809ed765b25e1c}{m\_endereco\_servidor}},\ 0,\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{classClienteUDP_a6f1aadce37f7840537809ed765b25e1c}{m\_endereco\_servidor}}));}
+\DoxyCodeLine{\Hypertarget{ClienteUDP_8cpp_source_l00015}00015\ \ \ \ \ \mbox{\hyperlink{classClienteUDP_a6f1aadce37f7840537809ed765b25e1c}{m\_endereco\_servidor}}.sin\_family\ =\ AF\_INET;}
+\DoxyCodeLine{\Hypertarget{ClienteUDP_8cpp_source_l00016}00016\ \ \ \ \ \mbox{\hyperlink{classClienteUDP_a6f1aadce37f7840537809ed765b25e1c}{m\_endereco\_servidor}}.sin\_port\ =\ htons(porta);}
+\DoxyCodeLine{\Hypertarget{ClienteUDP_8cpp_source_l00017}00017\ \ \ \ \ inet\_pton(AF\_INET,\ ip\_servidor.c\_str(),\ \&\mbox{\hyperlink{classClienteUDP_a6f1aadce37f7840537809ed765b25e1c}{m\_endereco\_servidor}}.sin\_addr);}
+\DoxyCodeLine{\Hypertarget{ClienteUDP_8cpp_source_l00018}00018\ \}}
+\DoxyCodeLine{\Hypertarget{ClienteUDP_8cpp_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{ClienteUDP_8cpp_source_l00020}\mbox{\hyperlink{classClienteUDP_aa4401f61b071f432fa1d85dedd9d69a4}{00020}}\ \mbox{\hyperlink{classClienteUDP_aa4401f61b071f432fa1d85dedd9d69a4}{ClienteUDP::\string~ClienteUDP}}()\ \{}
+\DoxyCodeLine{\Hypertarget{ClienteUDP_8cpp_source_l00021}00021\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{classClienteUDP_ac1f201121ae8ca365ed914b0bc079fcc}{m\_socket\_fd}}\ >=\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{ClienteUDP_8cpp_source_l00022}00022\ \ \ \ \ \ \ \ \ close(\mbox{\hyperlink{classClienteUDP_ac1f201121ae8ca365ed914b0bc079fcc}{m\_socket\_fd}});}
+\DoxyCodeLine{\Hypertarget{ClienteUDP_8cpp_source_l00023}00023\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ClienteUDP_8cpp_source_l00024}00024\ \}}
+\DoxyCodeLine{\Hypertarget{ClienteUDP_8cpp_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{ClienteUDP_8cpp_source_l00026}\mbox{\hyperlink{classClienteUDP_aa8f79b7ea509be8fdcf9686130a2e4fe}{00026}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classClienteUDP_aa8f79b7ea509be8fdcf9686130a2e4fe}{ClienteUDP::enviarMensagem}}(\textcolor{keyword}{const}\ std::string\&\ mensagem)\ \{}
+\DoxyCodeLine{\Hypertarget{ClienteUDP_8cpp_source_l00027}00027\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{classClienteUDP_ac1f201121ae8ca365ed914b0bc079fcc}{m\_socket\_fd}}\ <\ 0)\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{ClienteUDP_8cpp_source_l00028}00028\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{ClienteUDP_8cpp_source_l00029}00029\ \ \ \ \ ssize\_t\ bytes\_enviados\ =\ sendto(\mbox{\hyperlink{classClienteUDP_ac1f201121ae8ca365ed914b0bc079fcc}{m\_socket\_fd}},\ mensagem.c\_str(),\ mensagem.length(),\ 0,}
+\DoxyCodeLine{\Hypertarget{ClienteUDP_8cpp_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keyword}{struct}\ sockaddr*)\&\mbox{\hyperlink{classClienteUDP_a6f1aadce37f7840537809ed765b25e1c}{m\_endereco\_servidor}},\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{classClienteUDP_a6f1aadce37f7840537809ed765b25e1c}{m\_endereco\_servidor}}));}
+\DoxyCodeLine{\Hypertarget{ClienteUDP_8cpp_source_l00031}00031\ \ \ \ \ \textcolor{keywordflow}{return}\ bytes\_enviados\ >=\ 0;}
+\DoxyCodeLine{\Hypertarget{ClienteUDP_8cpp_source_l00032}00032\ \}}
+
+\end{DoxyCode}
