@@ -65,7 +65,52 @@ O programa iniciará o monitoramento contínuo em tempo real, exibindo as leitur
 
 ![Teste do sensor PIR no terminal](imagens/TerminalPlaca.png)
 ---
-### 4\. Compilação Cruzada do Código C++ com UDP (na VM Linux)
+### 4\. Protocolo UDP
+# Monitorização Inteligente de Carga — Sensor PIR AM312
+
+## Descrição Geral do Projeto
+Solução embarcada desenvolvida para o setor de desenvolvimento de sistemas embarcados de uma unidade de apoio logístico do Exército Brasileiro[cite: 2]. O sistema utiliza o kit de desenvolvimento **STM32MP1-DK1** e um **Módulo Sensor de Presença PIR Digital (AM312)** para monitorizar remotamente a integridade de uma carga sensível durante o transporte, detetando tentativas de violação por aproximação humana e transmitindo alertas em tempo real via rede local (UDP) para um servidor central[cite: 2, 3].
+
+---
+
+## Dependências Necessárias
+* **Hardware:**
+  * Kit de desenvolvimento **STM32MP157F-DK1**[cite: 7]
+  * Módulo Sensor de Presença PIR Digital (**AM312**)
+  * Cabos *jumpers* (ligação VCC 3.3V, GND e Sinal no pino analógico)[cite: 8, 11]
+  * Cabo Ethernet (RJ45) e cabo Micro-USB (consola serial)[cite: 7]
+* **Ambiente Embarcado (Kit e Compilação Cruzada):**
+  * Sistema Operativo Linux Embarcado (Buildroot) no kit[cite: 7]
+  * Toolchain de compilação cruzada `arm-buildroot-linux-gnueabihf`[cite: 6]
+  * Subsistema IIO do Linux (`/sys/bus/iio/devices/iio:device0/`)
+  * Ferramenta **Doxygen** (para geração da documentação HTML do código)
+* **Servidor Central (PC Windows/Linux):**
+  * **Python 3.x**
+  * Biblioteca `tkinter` (interface gráfica nativa do Python)
+  * Biblioteca `matplotlib` (gráfico temporal em tempo real):
+    ```bash
+    pip install matplotlib
+    ```
+
+---
+
+## Estrutura do Código, Classes e Diagramas
+
+### Organização de Diretórios
+```text
+├── include/
+│   ├── SensorPIR.hpp        # Declaração da classe de leitura do sensor PIR
+│   └── ClienteUDP.hpp       # Declaração da classe de comunicação UDP
+├── src/
+│   ├── SensorPIR.cpp        # Implementação da leitura ADC via sysfs/IIO
+│   └── ClienteUDP.cpp       # Implementação do socket UDP (POSIX)
+├── imagens/                 # Capturas de ecrã e evidências das entregas
+├── main.cpp                 # Aplicação principal (integração SensorPIR + ClienteUDP)
+├── servidor_interface.py    # Servidor UDP e interface gráfica (Tkinter + Matplotlib)
+├── Doxyfile                 # Ficheiro de configuração da documentação Doxygen
+└── README.md                # Documentação geral do projeto
+
+### 5\. Compilação Cruzada do Código C++ com UDP (na VM Linux)
 
 Na raiz do diretório do seu projeto (`projeto_sensor_de_movimento`), compile o código unindo todas as classes geradas:
 
@@ -73,7 +118,7 @@ Na raiz do diretório do seu projeto (`projeto_sensor_de_movimento`), compile o 
 arm-buildroot-linux-gnueabihf-g++ src/SensorPIR.cpp src/ClienteUDP.cpp main.cpp -I include -o Monitoramento_UDP
 ```
 
-### 5\. Transferência para o Kit STM32 (via SCP)
+### 6\. Transferência para o Kit STM32 (via SCP)
 
 Com a placa energizada e o cabo de rede conectado, envie o arquivo executável para o diretório `/home/root`:
 
@@ -81,7 +126,7 @@ Com a placa energizada e o cabo de rede conectado, envie o arquivo executável p
 scp Monitoramento_UDP root@192.168.42.2:/home/root
 ```
 
-### 6\. Execução no Hardware (via SSH)
+### 7\. Execução no Hardware (via SSH)
 
 Acesse remotamente o terminal da placa e inicie o programa embarcado:
 
@@ -92,7 +137,7 @@ ssh root@192.168.42.2
 
 *(Neste momento, a interface gráfica no seu PC começará a plotar o gráfico em tempo real).*
 
-### Fluxograma do Sistema Completo
+### Fluxograma do funcionamento do sistema
 
 ```mermaid
 flowchart TD
