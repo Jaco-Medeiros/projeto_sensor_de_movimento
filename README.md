@@ -101,7 +101,8 @@ O programa iniciará o monitoramento contínuo em tempo real, exibindo as leitur
 ---
 
 ### Fluxograma do Programa Funcional no Kit (STM32MP1-DK1)
-![fluxograma do programa funcional](imagens/fluxo.jpeg)
+![fluxograma do programa funcional](imagens/fluxo.jpg)
+
 ### 4\. Protocolo UDP
 
     subgraph Cliente ["Cliente Embarcado - STM32MP1-DK1 (C++)"]
