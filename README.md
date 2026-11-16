@@ -223,10 +223,12 @@ flowchart TD
     K --> L["Atualizar Gráfico Temporal (últimos 60s)<br/>e Janela de Histórico em Tempo Real (se aberta)"]
     L --> E
 ```
-## Interface do Sensor PIR (PYTHON)
+<h3>Interface do Sensor PIR (PYTHON)</h3>
 <img src="imagens/interface1.jpeg" alt="Interface do sensor" width="100%" high="500">
-## Histórico de Presença 
+
+<h3>Histórico de Presença</h3> 
 <img src="imagens/interface2.jpeg" alt="Histórico de presença" width="100%" high="500">
-## Exportação .CSV
+
+<h3>Exportação .CSV</h3>
 <img src="imagens/interface3.jpeg" alt="Exportando arquivo .CSV" width="100%" high="500">
 
