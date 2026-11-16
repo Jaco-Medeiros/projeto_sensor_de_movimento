@@ -223,6 +223,8 @@ flowchart TD
     K --> L["Atualizar Gráfico Temporal (últimos 60s)<br/>e Janela de Histórico em Tempo Real (se aberta)"]
     L --> E
 ```
-![Interface do Sensor PIR](imagens/interface1.jpeg)
-![Historico de Presença](imagens/interface2.jpeg)
-![Exportar .CSV](imagens/interface3.jpeg)
+<p align="center">
+<img src="imagens/interface1.jpeg" alt="Interface do sensor" width="400" />
+<img src="imagens/interface2.jpeg" alt="Histórico de presença" width="400" />
+<img src="imagens/interface3.jpeg" alt="Exportando arquivo .CSV" width="400" />
+</p>
