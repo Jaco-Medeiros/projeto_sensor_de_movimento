@@ -167,7 +167,6 @@ ssh root@192.168.42.2
 
 ```mermaid
 flowchart TD
-    subgraph STM32 ["Kit Embarcado - STM32MP1-DK1 (C++)"]
         A(["Início (main.cpp)"]) --> B["Instanciar SensorPIR (Canal 13)<br/>e ClienteUDP (Porta 8080)"]
         B --> C["Ler ADC: /sys/bus/iio/devices/iio:device0/in_voltage13_raw"]
         C --> D{"Valor ADC > 2000?"}
