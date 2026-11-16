@@ -196,6 +196,33 @@ flowchart TD
 
     H -. "Rede Local (Ethernet / UDP)" .-> 
 ```
-### 8\. Interface grafica (via SSH)
+### 8\. Interface gráfica 
 
+Atua como a central de monitoramento em tempo real no PC, abrindo um *socket* UDP não-bloqueante na porta `8080` para escutar continuamente os datagramas enviados pelo kit STM32MP1-DK1. A cada 100 milissegundos, o programa decodifica o pacote CSV recebido (`GRUPO,SENSOR,VALOR_ADC,ESTADO`), verifica se o valor ultrapassou o limiar calibrado e atualiza instantaneamente os cartões de telemetria, o banner de alerta visual (verde para perímetro seguro ou vermelho para presença confirmada) e o gráfico temporal dos últimos 60 segundos em Matplotlib. Paralelamente, cada leitura é gravada de forma persistente no arquivo `historico_sensor.csv`, permitindo ao operador exportar relatórios a qualquer momento ou abrir uma janela secundária sincronizada ao vivo com a data e a hora exatas da última presença confirmada e do último estado seguro. 
 
+### Fluxograma da Interface Gráfica e Servidor Central (`servidor_interface.py`)
+
+```mermaid
+flowchart TD
+    A(["Início (servidor_interface.py)"]) --> B["Configurar Socket UDP Não-Bloqueante<br/>bind(('0.0.0.0', 8080)) | setblocking(False)"]
+    B --> C["Inicializar/Carregar Log CSV<br/>(historico_sensor.csv) e Últimos Timestamps"]
+    C --> D["Construir Interface Gráfica Tkinter (Dark HUD)<br/>KPIs, Controles e Gráfico Matplotlib"]
+    D --> E{"Ciclo de Atualização (100 ms)<br/>Pacote UDP disponível em recvfrom()?"}
+    
+    E -- "Não (BlockingIOError)" --> E
+    E -- "Sim" --> F["Decodificar UTF-8 e separar campos CSV<br/>(Grupo, Sensor, Valor_ADC, Estado)"]
+    F --> G{"Payload válido (4 campos)?"}
+    G -- "Não" --> E
+    G -- "Sim" --> H{"Estado == 1 ou<br/>Valor_ADC > Limiar?"}
+    
+    H -- "Sim (Violação)" --> I["Atualizar Banner para Vermelho (ALERTA)<br/>Incrementar Violações e Última Presença"]
+    H -- "Não (Seguro)" --> J["Atualizar Banner para Verde (SEGURO)<br/>Atualizar Última Leitura Sem Presença"]
+    
+    I --> K["Gravar registro com Timestamp em historico_sensor.csv"]
+    J --> K
+    K --> L["Atualizar Gráfico Temporal (últimos 60s)<br/>e Janela de Histórico em Tempo Real (se aberta)"]
+    L --> E
+```
+![Interface do Sensor PIR](imagens/interface1.jpeg)
+![Historico de Presença](imagens/interface2.jpeg)
+![Exportar .CSV](imagens/interface3.jpeg)
