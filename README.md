@@ -116,7 +116,7 @@ flowchart TD
     I --> C
 
 ```
-![fluxograma do programa funcional](imagens/fluxo.jpg)
+
 ### 4\. Protocolo UDP
 
  A comunicação entre o kit embarcado STM32MP1-DK1 e o computador central utiliza o protocolo **UDP (*User Datagram Protocol*) sobre IPv4 (`SOCK_DGRAM`)** na **porta 8080**, escolhido por dispensar estabelecimento de conexão (*handshake*) e confirmação de entrega (*ACK*), garantindo baixa latência e envio contínuo em tempo real pela rede local Ethernet. Na camada de aplicação, as mensagens seguem um protocolo proprietário em texto plano estruturado no formato **CSV (`GRUPO,SENSOR,VALOR_ADC,ESTADO`)**, permitindo que o servidor Python decodifique, valide e atualize instantaneamente os alertas visuais, o gráfico temporal e o arquivo de log. 
@@ -167,38 +167,7 @@ ssh root@192.168.42.2
 
 *(Neste momento, a interface gráfica no seu PC começará a plotar o gráfico em tempo real).*
 
-### Fluxograma do funcionamento do sistema
 
-```mermaid
-flowchart TD
-        A(["Início (main.cpp)"]) --> B["Instanciar SensorPIR (Canal 13)<br/>e ClienteUDP (Porta 8080)"]
-        B --> C["Ler ADC: /sys/bus/iio/devices/iio:device0/in_voltage13_raw"]
-        C --> D{"Valor ADC > 2000?"}
-        D -- "Sim" --> E["Estado = 1 (Violação)<br/>Terminal: 'Presença confirmada!'"]
-        D -- "Não" --> F["Estado = 0 (Seguro)<br/>Terminal: 'Estado: Seguro'"]
-        E --> G["Formatar payload CSV:<br/>GRUPO_X,PIR_AM312,VALOR,ESTADO"]
-        F --> G
-        G --> H["Enviar datagrama via Socket UDP"]
-        H --> I["Aguardar 500 ms (usleep)"]
-        I --> C
-    end
-
-    subgraph PC ["Servidor Central - PC (Python)"]
-        J(["Início (servidor_interface.py)"]) --> K["Abrir Socket UDP (0.0.0.0:8080)<br/>e inicializar GUI Tkinter"]
-        K --> L{"Pacote UDP<br/>recebido?"}
-        L -- "Não" --> L
-        L -- "Sim" --> M["Decodificar e separar campos CSV"]
-        M --> N{"Estado == 1?"}
-        N -- "Sim" --> O["Alerta Visual: Fundo Vermelho<br/>'VIOLAÇÃO DETETADA'"]
-        N -- "Não" --> P["Status Normal: Fundo Verde<br/>'SEGURO'"]
-        O --> Q["Gravar registro com timestamp<br/>em historico_sensor.csv"]
-        P --> Q
-        Q --> R["Atualizar gráfico em tempo real<br/>(Matplotlib - últimas 60 leituras)"]
-        R --> L
-    end
-
-    H -. "Rede Local (Ethernet / UDP)" .-> 
-```
 ### 8\. Interface gráfica 
 
 Atua como a central de monitoramento em tempo real no PC, abrindo um *socket* UDP não-bloqueante na porta `8080` para escutar continuamente os datagramas enviados pelo kit STM32MP1-DK1. A cada 100 milissegundos, o programa decodifica o pacote CSV recebido (`GRUPO,SENSOR,VALOR_ADC,ESTADO`), verifica se o valor ultrapassou o limiar calibrado e atualiza instantaneamente os cartões de telemetria, o banner de alerta visual (verde para perímetro seguro ou vermelho para presença confirmada) e o gráfico temporal dos últimos 60 segundos em Matplotlib. Paralelamente, cada leitura é gravada de forma persistente no arquivo `historico_sensor.csv`, permitindo ao operador exportar relatórios a qualquer momento ou abrir uma janela secundária sincronizada ao vivo com a data e a hora exatas da última presença confirmada e do último estado seguro. 
