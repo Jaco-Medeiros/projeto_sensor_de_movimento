@@ -101,7 +101,6 @@ O programa iniciará o monitoramento contínuo em tempo real, exibindo as leitur
 ---
 ### 4\. Protocolo UDP
 
-flowchart LR
     subgraph Cliente ["Cliente Embarcado - STM32MP1-DK1 (C++)"]
         C1(["Início"]) --> C2["Criar Socket UDP<br/>socket(AF_INET, SOCK_DGRAM, 0)"]
         C2 --> C3["Configurar Destino<br/>struct sockaddr_in (IP Servidor : Porta 8080)"]
