@@ -91,3 +91,36 @@ ssh root@192.168.42.2
 ```
 
 *(Neste momento, a interface gráfica no seu PC começará a plotar o gráfico em tempo real).*
+
+### Fluxograma do Sistema Completo
+
+```mermaid
+flowchart TD
+    subgraph STM32 ["Kit Embarcado - STM32MP1-DK1 (C++)"]
+        A(["Início (main.cpp)"]) --> B["Instanciar SensorPIR (Canal 13)<br/>e ClienteUDP (Porta 8080)"]
+        B --> C["Ler ADC: /sys/bus/iio/devices/iio:device0/in_voltage13_raw"]
+        C --> D{"Valor ADC > 2000?"}
+        D -- "Sim" --> E["Estado = 1 (Violação)<br/>Terminal: 'Presença confirmada!'"]
+        D -- "Não" --> F["Estado = 0 (Seguro)<br/>Terminal: 'Estado: Seguro'"]
+        E --> G["Formatar payload CSV:<br/>GRUPO_X,PIR_AM312,VALOR,ESTADO"]
+        F --> G
+        G --> H["Enviar datagrama via Socket UDP"]
+        H --> I["Aguardar 500 ms (usleep)"]
+        I --> C
+    end
+
+    subgraph PC ["Servidor Central - PC (Python)"]
+        J(["Início (servidor_interface.py)"]) --> K["Abrir Socket UDP (0.0.0.0:8080)<br/>e inicializar GUI Tkinter"]
+        K --> L{"Pacote UDP<br/>recebido?"}
+        L -- "Não" --> L
+        L -- "Sim" --> M["Decodificar e separar campos CSV"]
+        M --> N{"Estado == 1?"}
+        N -- "Sim" --> O["Alerta Visual: Fundo Vermelho<br/>'VIOLAÇÃO DETETADA'"]
+        N -- "Não" --> P["Status Normal: Fundo Verde<br/>'SEGURO'"]
+        O --> Q["Gravar registro com timestamp<br/>em historico_sensor.csv"]
+        P --> Q
+        Q --> R["Atualizar gráfico em tempo real<br/>(Matplotlib - últimas 60 leituras)"]
+        R --> L
+    end
+
+    H -. "Rede Local (Ethernet / UDP)" .-> L
