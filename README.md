@@ -99,6 +99,32 @@ O programa iniciará o monitoramento contínuo em tempo real, exibindo as leitur
 
 ![Teste do sensor PIR no terminal](imagens/TerminalPlaca.png)
 ---
+
+### Fluxograma do Programa Funcional no Kit (STM32MP1-DK1)
+
+```mermaid
+flowchart LR
+    subgraph Host ["Ambiente de Desenvolvimento (Compilação Cruzada - Host)"]
+        H1(["Início"]) --> H2["Configurar Toolchain<br/>export PATH=$PATH:$(pwd)/bin"]
+        H2 --> H3["Compilar Código C++ para ARM<br/>arm-buildroot-linux-gnueabihf-g++<br/>SensorPIR.cpp main.cpp -I include -o leitura_pir"]
+        H3 --> H4["Transferir Binário via Rede (SCP)<br/>scp leitura_pir root@192.168.42.2:/home/root"]
+    end
+
+    subgraph Kit ["Kit de Desenvolvimento (Execução e Leitura do Sensor)"]
+        K1["Aceder ao Terminal da Placa (SSH / TeraTerm)<br/>Executar ./leitura_pir"] --> K2["Instanciar Objeto SensorPIR(13)<br/>Caminho: /sys/.../in_voltage13_raw"]
+        K2 --> K3["Abrir Ficheiro Sysfs/IIO e Ler Valor Bruto ADC"]
+        K3 --> K4{"Leitura válida?"}
+        K4 -- "Não (Erro de I/O)" --> K5["Exibir Mensagem de Erro<br/>na Leitura do Canal 13"]
+        K4 -- "Sim" --> K6{"Valor ADC > 2000?<br/>(verificarViolacao)"}
+        K6 -- "Sim" --> K7["Exibir no Terminal:<br/>'[ALERTA] Presenca confirmada!'"]
+        K6 -- "Não" --> K8["Exibir no Terminal:<br/>'Estado: Seguro (Sem movimento)'"]
+        K5 --> K9["Aguardar 500 ms (usleep)"]
+        K7 --> K9
+        K8 --> K9
+        K9 --> K3
+    end
+
+    H4 -. "Envio via SSH/SCP" .-> K1
 ### 4\. Protocolo UDP
 
     subgraph Cliente ["Cliente Embarcado - STM32MP1-DK1 (C++)"]
