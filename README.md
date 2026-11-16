@@ -194,4 +194,8 @@ flowchart TD
         R --> L
     end
 
-    H -. "Rede Local (Ethernet / UDP)" .-> L
+    H -. "Rede Local (Ethernet / UDP)" .-> 
+```
+### 8\. Interface grafica (via SSH)
+
+
