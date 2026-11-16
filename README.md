@@ -101,49 +101,53 @@ O programa iniciará o monitoramento contínuo em tempo real, exibindo as leitur
 ---
 
 ### Fluxograma do Programa Funcional no Kit (STM32MP1-DK1)
-![fluxograma do programa funcional](imagens/fluxo.jpg)
 
+```mermaid
+flowchart TD
+    A(["Início (main.cpp)"]) --> B["Instanciar SensorPIR(13)<br/>e ClienteUDP(IP_Servidor, 8080)"]
+    B --> C["Ler valor bruto do ADC<br/>(/sys/bus/iio/devices/iio:device0/in_voltage13_raw)"]
+    C --> D{"Valor ADC > 2000?"}
+    D -- "Sim" --> E["Estado = 1<br/>Exibir: '[ALERTA] Presenca confirmada!'"]
+    D -- "Não" --> F["Estado = 0<br/>Exibir: 'Estado: Seguro'"]
+    E --> G["Formatar mensagem CSV<br/>(GRUPO_X,PIR_AM312,VALOR,ESTADO)"]
+    F --> G
+    G --> H["Enviar pacote UDP (sendto)"]
+    H --> I["Aguardar 500 ms (usleep)"]
+    I --> C
+
+```
+![fluxograma do programa funcional](imagens/fluxo.jpg)
 ### 4\. Protocolo UDP
 
+ A comunicação entre o kit embarcado STM32MP1-DK1 e o computador central utiliza o protocolo **UDP (*User Datagram Protocol*) sobre IPv4 (`SOCK_DGRAM`)** na **porta 8080**, escolhido por dispensar estabelecimento de conexão (*handshake*) e confirmação de entrega (*ACK*), garantindo baixa latência e envio contínuo em tempo real pela rede local Ethernet. Na camada de aplicação, as mensagens seguem um protocolo proprietário em texto plano estruturado no formato **CSV (`GRUPO,SENSOR,VALOR_ADC,ESTADO`)**, permitindo que o servidor Python decodifique, valide e atualize instantaneamente os alertas visuais, o gráfico temporal e o arquivo de log. 
+ 
+ ```mermaid
+flowchart LR
     subgraph Cliente ["Cliente Embarcado - STM32MP1-DK1 (C++)"]
-        C1(["Início"]) --> C2["Criar Socket UDP<br/>socket(AF_INET, SOCK_DGRAM, 0)"]
-        C2 --> C3["Configurar Destino<br/>struct sockaddr_in (IP Servidor : Porta 8080)"]
-        C3 --> C4["Montar Payload CSV<br/>'GRUPO_X,PIR_AM312,VALOR,ESTADO'"]
-        C4 --> C5["Transmitir Datagrama<br/>sendto() (Sem handshake)"]
-        C5 --> C6["Aguardar 500 ms"]
-        C6 --> C4
+        C1(["Início"]) --> C2["Criar Socket UDP (SOCK_DGRAM)<br/>e configurar IP_Servidor : Porta 8080"]
+        C2 --> C3["Ler ADC e montar payload CSV<br/>'GRUPO_X,PIR_AM312,VALOR,ESTADO'"]
+        C3 --> C4["Transmitir datagrama via sendto()<br/>(Envio direto sem handshake)"]
+        C4 --> C5["Aguardar 500 ms (usleep)"]
+        C5 --> C3
     end
 
-    subgraph Rede ["Camada de Transporte / Rede"]
-        R1(("Pacote UDP/IPv4<br/>Porta 8080<br/>Ethernet"))
+    subgraph Rede ["Rede Local"]
+        R1(("Datagrama UDP/IPv4<br/>Porta 8080"))
     end
 
     subgraph Servidor ["Servidor Central - PC (Python)"]
-        S1(["Início"]) --> S2["Criar Socket UDP<br/>socket.socket(AF_INET, SOCK_DGRAM)"]
-        S2 --> S3["Associar Interface e Porta<br/>bind(('0.0.0.0', 8080))<br/>setblocking(False)"]
-        S3 --> S4{"Datagrama disponível<br/>em recvfrom(1024)?"}
-        S4 -- "Não (BlockingIOError)" --> S4
-        S4 -- "Sim" --> S5["Decodificar UTF-8 e<br/>separar campos por ','"]
-        S5 --> S6{"Payload válido?<br/>(4 campos)"}
-        S6 -- "Não" --> S4
-        S6 -- "Sim" --> S7["Atualizar GUI (Tkinter/Matplotlib)<br/>e gravar em historico_sensor.csv"]
-        S7 --> S4
+        S1(["Início"]) --> S2["Abrir Socket UDP (0.0.0.0:8080)<br/>Modo não-bloqueante"]
+        S2 --> S3{"Pacote disponível<br/>em recvfrom()?"}
+        S3 -- "Não" --> S3
+        S3 -- "Sim" --> S4["Decodificar UTF-8 e validar CSV"]
+        S4 --> S5["Atualizar Interface Gráfica<br/>e salvar em historico_sensor.csv"]
+        S5 --> S3
     end
 
-    C5 -. "Envio contínuo" .-> R1
-    R1 -. "Recepção assíncrona" .-> S4
-    
-    graph TD
-    A[Início / Inicialização do Sistema] --> B[Configuração do Canal ADC e GPIO do PIR]
-    B --> C[Criação do Socket UDP <br> socket AF_INET, SOCK_DGRAM]
-    C --> D[Configuração do Endereço de Destino <br> struct sockaddr_in IP e Porta]
-    D --> E[Leitura do Sensor PIR / Conversão ADC]
-    E --> F{Houve Mudança de Estado <br> ou Alarme de Movimento?}
-    F -- Não --> E
-    F -- Sim --> G[Empacotamento dos Dados <br> Struct/Buffer: ID do Sensor, Timestamp, Valor ADC]
-    G --> H[Envio do Datagrama via sendto]
-    H --> E
-
+    C4 -. "Envio contínuo" .-> R1
+    R1 -. "Recepção assíncrona" .-> S3
+ 
+ 
 ### 6\. Transferência para o Kit STM32 (via SCP)
 
 Com a placa energizada e o cabo de rede conectado, envie o arquivo executável para o diretório `/home/root`:
