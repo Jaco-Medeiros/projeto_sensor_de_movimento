@@ -8,15 +8,49 @@ O escopo deste repositório abrange a integração e controle do **Módulo Senso
 
 ## 🛠 Dependências Necessárias
 
-Para compilar, documentar e executar este projeto, o seu ambiente (Máquina Virtual Linux) precisa das seguintes ferramentas:
+* **Hardware:**
+  * Kit de desenvolvimento **STM32MP157F-DK1**[cite: 7]
+  * Módulo Sensor de Presença PIR Digital (**AM312**)
+  * Cabos *jumpers* (ligação VCC 3.3V, GND e Sinal no pino analógico)[cite: 8, 11]
+  * Cabo Ethernet (RJ45) e cabo Micro-USB (consola serial)[cite: 7]
+* **Ambiente Embarcado (Kit e Compilação Cruzada):**
+  * Sistema Operativo Linux Embarcado (Buildroot) no kit[cite: 7]
+  * Toolchain de compilação cruzada `arm-buildroot-linux-gnueabihf`[cite: 6]
+  * Subsistema IIO do Linux (`/sys/bus/iio/devices/iio:device0/`)
+  * Ferramenta **Doxygen** (para geração da documentação HTML do código)
+* **Servidor Central (PC Windows/Linux):**
+  * **Python 3.x**
+  * Biblioteca `tkinter` (interface gráfica nativa do Python)
+  * Biblioteca `matplotlib` (gráfico temporal em tempo real):
+    ```bash
+    pip install matplotlib
+    ```
 
-* **Toolchain de Compilação Cruzada:** `arm-buildroot-linux-gnueabihf_sdk-DK2`
-* **Gerador de Documentação:** `Doxygen`
-* **Gerador de Gráficos/Diagramas:** `Graphviz`
-* **Acesso à Placa:** Cliente `SSH` e `SCP` para transferência via rede.
+---
 
 ## 📂 Estrutura do Código e Classes
 
+### Organização de Diretórios
+```text
+├── include/
+│   ├── SensorPIR.hpp        # Declaração da classe de leitura do sensor PIR
+│   └── ClienteUDP.hpp       # Declaração da classe de comunicação UDP
+├── src/
+│   ├── SensorPIR.cpp        # Implementação da leitura ADC via sysfs/IIO
+│   └── ClienteUDP.cpp       # Implementação do socket UDP (POSIX)
+├── imagens/                 # Capturas de ecrã e evidências das entregas
+├── main.cpp                 # Aplicação principal (integração SensorPIR + ClienteUDP)
+├── servidor_interface.py    # Servidor UDP e interface gráfica (Tkinter + Matplotlib)
+├── Doxyfile                 # Ficheiro de configuração da documentação Doxygen
+└── README.md                # Documentação geral do projeto
+
+### 5\. Compilação Cruzada do Código C++ com UDP (na VM Linux)
+
+Na raiz do diretório do seu projeto (`projeto_sensor_de_movimento`), compile o código unindo todas as classes geradas:
+
+```sh
+arm-buildroot-linux-gnueabihf-g++ src/SensorPIR.cpp src/ClienteUDP.cpp main.cpp -I include -o Monitoramento_UDP
+```
 O sistema foi modelado com foco no encapsulamento orientado a objetos, garantindo a ausência de variáveis globais e facilitando a futura integração.
 
 * **`include/SensorPIR.hpp`**: Arquivo de cabeçalho. Contém a declaração da classe `SensorPIR`, devidamente documentada com Doxygen.
@@ -66,57 +100,46 @@ O programa iniciará o monitoramento contínuo em tempo real, exibindo as leitur
 ![Teste do sensor PIR no terminal](imagens/TerminalPlaca.png)
 ---
 ### 4\. Protocolo UDP
-# Monitorização Inteligente de Carga — Sensor PIR AM312
 
-## Descrição Geral do Projeto
-Solução embarcada desenvolvida para o setor de desenvolvimento de sistemas embarcados de uma unidade de apoio logístico do Exército Brasileiro[cite: 2]. O sistema utiliza o kit de desenvolvimento **STM32MP1-DK1** e um **Módulo Sensor de Presença PIR Digital (AM312)** para monitorizar remotamente a integridade de uma carga sensível durante o transporte, detetando tentativas de violação por aproximação humana e transmitindo alertas em tempo real via rede local (UDP) para um servidor central[cite: 2, 3].
+flowchart LR
+    subgraph Cliente ["Cliente Embarcado - STM32MP1-DK1 (C++)"]
+        C1(["Início"]) --> C2["Criar Socket UDP<br/>socket(AF_INET, SOCK_DGRAM, 0)"]
+        C2 --> C3["Configurar Destino<br/>struct sockaddr_in (IP Servidor : Porta 8080)"]
+        C3 --> C4["Montar Payload CSV<br/>'GRUPO_X,PIR_AM312,VALOR,ESTADO'"]
+        C4 --> C5["Transmitir Datagrama<br/>sendto() (Sem handshake)"]
+        C5 --> C6["Aguardar 500 ms"]
+        C6 --> C4
+    end
 
----
+    subgraph Rede ["Camada de Transporte / Rede"]
+        R1(("Pacote UDP/IPv4<br/>Porta 8080<br/>Ethernet"))
+    end
 
-## Dependências Necessárias
-* **Hardware:**
-  * Kit de desenvolvimento **STM32MP157F-DK1**[cite: 7]
-  * Módulo Sensor de Presença PIR Digital (**AM312**)
-  * Cabos *jumpers* (ligação VCC 3.3V, GND e Sinal no pino analógico)[cite: 8, 11]
-  * Cabo Ethernet (RJ45) e cabo Micro-USB (consola serial)[cite: 7]
-* **Ambiente Embarcado (Kit e Compilação Cruzada):**
-  * Sistema Operativo Linux Embarcado (Buildroot) no kit[cite: 7]
-  * Toolchain de compilação cruzada `arm-buildroot-linux-gnueabihf`[cite: 6]
-  * Subsistema IIO do Linux (`/sys/bus/iio/devices/iio:device0/`)
-  * Ferramenta **Doxygen** (para geração da documentação HTML do código)
-* **Servidor Central (PC Windows/Linux):**
-  * **Python 3.x**
-  * Biblioteca `tkinter` (interface gráfica nativa do Python)
-  * Biblioteca `matplotlib` (gráfico temporal em tempo real):
-    ```bash
-    pip install matplotlib
-    ```
+    subgraph Servidor ["Servidor Central - PC (Python)"]
+        S1(["Início"]) --> S2["Criar Socket UDP<br/>socket.socket(AF_INET, SOCK_DGRAM)"]
+        S2 --> S3["Associar Interface e Porta<br/>bind(('0.0.0.0', 8080))<br/>setblocking(False)"]
+        S3 --> S4{"Datagrama disponível<br/>em recvfrom(1024)?"}
+        S4 -- "Não (BlockingIOError)" --> S4
+        S4 -- "Sim" --> S5["Decodificar UTF-8 e<br/>separar campos por ','"]
+        S5 --> S6{"Payload válido?<br/>(4 campos)"}
+        S6 -- "Não" --> S4
+        S6 -- "Sim" --> S7["Atualizar GUI (Tkinter/Matplotlib)<br/>e gravar em historico_sensor.csv"]
+        S7 --> S4
+    end
 
----
-
-## Estrutura do Código, Classes e Diagramas
-
-### Organização de Diretórios
-```text
-├── include/
-│   ├── SensorPIR.hpp        # Declaração da classe de leitura do sensor PIR
-│   └── ClienteUDP.hpp       # Declaração da classe de comunicação UDP
-├── src/
-│   ├── SensorPIR.cpp        # Implementação da leitura ADC via sysfs/IIO
-│   └── ClienteUDP.cpp       # Implementação do socket UDP (POSIX)
-├── imagens/                 # Capturas de ecrã e evidências das entregas
-├── main.cpp                 # Aplicação principal (integração SensorPIR + ClienteUDP)
-├── servidor_interface.py    # Servidor UDP e interface gráfica (Tkinter + Matplotlib)
-├── Doxyfile                 # Ficheiro de configuração da documentação Doxygen
-└── README.md                # Documentação geral do projeto
-
-### 5\. Compilação Cruzada do Código C++ com UDP (na VM Linux)
-
-Na raiz do diretório do seu projeto (`projeto_sensor_de_movimento`), compile o código unindo todas as classes geradas:
-
-```sh
-arm-buildroot-linux-gnueabihf-g++ src/SensorPIR.cpp src/ClienteUDP.cpp main.cpp -I include -o Monitoramento_UDP
-```
+    C5 -. "Envio contínuo" .-> R1
+    R1 -. "Recepção assíncrona" .-> S4
+    
+    graph TD
+    A[Início / Inicialização do Sistema] --> B[Configuração do Canal ADC e GPIO do PIR]
+    B --> C[Criação do Socket UDP <br> socket AF_INET, SOCK_DGRAM]
+    C --> D[Configuração do Endereço de Destino <br> struct sockaddr_in IP e Porta]
+    D --> E[Leitura do Sensor PIR / Conversão ADC]
+    E --> F{Houve Mudança de Estado <br> ou Alarme de Movimento?}
+    F -- Não --> E
+    F -- Sim --> G[Empacotamento dos Dados <br> Struct/Buffer: ID do Sensor, Timestamp, Valor ADC]
+    G --> H[Envio do Datagrama via sendto]
+    H --> E
 
 ### 6\. Transferência para o Kit STM32 (via SCP)
 
