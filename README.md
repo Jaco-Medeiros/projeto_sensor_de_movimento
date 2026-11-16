@@ -121,7 +121,7 @@ flowchart TD
 
  A comunicação entre o kit embarcado STM32MP1-DK1 e o computador central utiliza o protocolo **UDP (*User Datagram Protocol*) sobre IPv4 (`SOCK_DGRAM`)** na **porta 8080**, escolhido por dispensar estabelecimento de conexão (*handshake*) e confirmação de entrega (*ACK*), garantindo baixa latência e envio contínuo em tempo real pela rede local Ethernet. Na camada de aplicação, as mensagens seguem um protocolo proprietário em texto plano estruturado no formato **CSV (`GRUPO,SENSOR,VALOR_ADC,ESTADO`)**, permitindo que o servidor Python decodifique, valide e atualize instantaneamente os alertas visuais, o gráfico temporal e o arquivo de log. 
  
- ```mermaid
+```mermaid
 flowchart LR
     subgraph Cliente ["Cliente Embarcado - STM32MP1-DK1 (C++)"]
         C1(["Início"]) --> C2["Criar Socket UDP (SOCK_DGRAM)<br/>e configurar IP_Servidor : Porta 8080"]
@@ -143,11 +143,11 @@ flowchart LR
         S4 --> S5["Atualizar Interface Gráfica<br/>e salvar em historico_sensor.csv"]
         S5 --> S3
     end
-
+    
     C4 -. "Envio contínuo" .-> R1
     R1 -. "Recepção assíncrona" .-> S3
- 
- 
+```
+
 ### 6\. Transferência para o Kit STM32 (via SCP)
 
 Com a placa energizada e o cabo de rede conectado, envie o arquivo executável para o diretório `/home/root`:
