@@ -224,9 +224,9 @@ flowchart TD
     L --> E
 ```
 ## Interface do Sensor PIR (PYTHON)
-<img src="imagens/interface1.jpeg" alt="Interface do sensor" width="800" high="500">
+<img src="imagens/interface1.jpeg" alt="Interface do sensor" width="100%" high="500">
 ## Histórico de Presença 
-<img src="imagens/interface2.jpeg" alt="Histórico de presença" width="800" high="500">
+<img src="imagens/interface2.jpeg" alt="Histórico de presença" width="100%" high="500">
 ## Exportação .CSV
-<img src="imagens/interface3.jpeg" alt="Exportando arquivo .CSV" width="800" high="500">
+<img src="imagens/interface3.jpeg" alt="Exportando arquivo .CSV" width="100%" high="500">
 
